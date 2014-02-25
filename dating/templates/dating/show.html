@@ -2,12 +2,13 @@
 
 {% block page_header %}
   <div class="page-header">
-    <h1>Title: {{ article.title }}</h1>
+    <h1>Pet: {{ pet.name }}</h1>
   </div>
 {% endblock %}
 
 {% block content %}
-  <p>Author: {{ article.author }}<p>
-  <p>Body: {{ article.body }}<p>
-  <p>Created: {{ article.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
+  <p>Pet Type: {{ pet.pet_type }}<p>
+  <p>Color: {{ pet.color }}<p>
+  <p>Weight: {{ pet.weight }}<p>
+  <p>Birth date: {{ pet.birthdate.strftime('%H:%M %Y-%m-%d') }}<p>
 {% endblock %}
