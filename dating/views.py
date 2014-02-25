@@ -7,21 +7,22 @@ from dating.models import *
 
 dating = Blueprint('dating', __name__, template_folder='templates')
 
-# class Search(MethodView):
+class Search(MethodView):
 
-#   def get(self):
-#     query = request.args.get('q', '')
-#     count = int(request.args.get('n', 0))
-  
-#     try:
-#       articles = Article.objects(body__contains=query)
-#     except Article.DoesNotExist:
-#       articles = []
+  def get(self):
+    query = request.args.get('q', '')
+    count = int(request.args.get('n', 0))
 
-#     if count > 0:
-#       return render_template('articles/index.html', articles=articles[:count])
-#     else:
-#       return render_template('articles/index.html', articles=articles)
+    try:
+      pets = Pets.objects.filter(name__contains=query)
+      print len(pets)
+    except Pets.DoesNotExist:
+      pets = []
+
+    if count > 0:
+      return render_template('dating/pets.html', pets=pets[:count])
+    else:
+      return render_template('dating/pets.html', pets=pets)
       
 
 class Home(MethodView):  
@@ -63,7 +64,8 @@ class Users(MethodView):
 
 dating.add_url_rule('/', view_func=Home.as_view('home'))
 dating.add_url_rule('/users', view_func=Users.as_view('users'))
+dating.add_url_rule('/search', view_func=Search.as_view('search'))
 # articles.add_url_rule('/create', view_func=CreateArticle.as_view('create'))
 # articles.add_url_rule('/view/<slug>/', view_func=ShowArticle.as_view('show'))
-# articles.add_url_rule('/search', view_func=Search.as_view('search'))
+
 

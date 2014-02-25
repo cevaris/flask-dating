@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>Name</th>
+<th>Pet Type</th>
+<td>Birth Date</td>
+</tr>
+</thead>
+{% for pet in pets %}
+<tr>
+  <td>{{pet.name}}</td>
+  <td>{{pet.pet_type}}</td>
+  <td>{{pet.birthdate}}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
