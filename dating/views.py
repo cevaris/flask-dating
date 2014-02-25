@@ -10,12 +10,12 @@ dating = Blueprint('dating', __name__, template_folder='templates')
 class Search(MethodView):
 
   def get(self):
-    query = request.args.get('q', '')
+    name = request.args.get('name', '')
+    pet_type = request.args.get('pet_type', '')
     count = int(request.args.get('n', 0))
 
     try:
-      pets = Pets.objects.filter(name__contains=query)
-      print len(pets)
+      pets = Pets.objects.filter(name__contains=name, pet_type__contains=pet_type)
     except Pets.DoesNotExist:
       pets = []
 
