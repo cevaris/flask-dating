@@ -11,18 +11,26 @@ class Search(MethodView):
 
   def get(self):
     name = request.args.get('name', '')
+    
     pet_type = request.args.get('pet_type', '')
-    count = int(request.args.get('n', 0))
+    
+    
+    count = Pets.objects.count()
+    if request.args.get('n'):
+      count = int(request.args.get('n').encode("utf8")) or Pets.objects.count()
+    
+    
 
     try:
       pets = Pets.objects.filter(name__contains=name, pet_type__contains=pet_type)
     except Pets.DoesNotExist:
       pets = []
 
+    form_data = {'name': name,'pet_type':pet_type, 'count':count}
     if count > 0:
-      return render_template('dating/pets.html', pets=pets[:count])
+      return render_template('dating/pets.html', pets=pets[:count], data=form_data )
     else:
-      return render_template('dating/pets.html', pets=pets)
+      return render_template('dating/pets.html', pets=pets, data=form_data )
       
 
 class Home(MethodView):  
